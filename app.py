@@ -55,6 +55,7 @@ webrtc_ctx = webrtc_streamer(
     },
     video_processor_factory=YOLOTransformer,
     media_stream_constraints={"video": True, "audio": False},
+    async_processing=True,
 )
 
 if webrtc_ctx.video_processor:
