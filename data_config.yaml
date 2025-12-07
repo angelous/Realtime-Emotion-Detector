@@ -1,0 +1,5 @@
+train: 9 Facial Expressions you need/train/images
+val: 9 Facial Expressions you need/valid/images
+test: 9 Facial Expressions you need/test/images
+nc: 9
+names: ['angry', 'contempt', 'disgust', 'fear', 'happy', 'natural', 'sad', 'sleepy', 'surprised']
