@@ -50,42 +50,13 @@ webrtc_ctx = webrtc_streamer(
     key="yolo-drowsy",
     mode=WebRtcMode.SENDRECV,
     rtc_configuration={
-        "iceServers": [
-            {"urls": "stun:stun.l.google.com:19302"},
-            {
-                "urls": [
-                    "turn:openrelay.metered.ca:80",
-                    "turn:openrelay.metered.ca:443",
-                    "turn:openrelay.metered.ca:443?transport=tcp"
-                ],
-                "username": "openrelayproject",
-                "credential": "openrelayproject"
-            }
-        ]
+        "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
     },
     video_processor_factory=YOLOTransformer,
     media_stream_constraints={"video": True, "audio": False},
     async_processing=True,
 )
 
-# if webrtc_ctx.video_processor:
-#     st.session_state.processor = webrtc_ctx.video_processor
-
-# if st.session_state.processor:
-#     label = st.session_state.processor.current_label
-#     warn = st.session_state.processor.warning
-# else:
-#     label = "None"
-#     warn = False
-
-# st.subheader("Current Emotion")
-# st.markdown(f"### 🧠 **{label}**")
-
-# if warn:
-#     st.markdown(
-#         "<span style='color:red; font-size:24px;'>⚠️ WARNING: You look sleepy!</span>",
-#         unsafe_allow_html=True,
-#     )
 
 label_placeholder = st.empty()
 warning_placeholder = st.empty()
