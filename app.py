@@ -48,6 +48,11 @@ class YOLOTransformer(VideoTransformerBase):
 webrtc_ctx = webrtc_streamer(
     key="yolo-drowsy",
     mode=WebRtcMode.SENDRECV,
+    rtc_configuration={
+        "iceServers": [
+            {"urls": ["stun:stun.l.google.com:19302"]}
+        ]
+    },
     video_processor_factory=YOLOTransformer,
     media_stream_constraints={"video": True, "audio": False},
 )
