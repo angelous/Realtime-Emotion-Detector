@@ -14,7 +14,7 @@ model = YOLO(MODEL_PATH)
 if "processor" not in st.session_state:
     st.session_state.processor = None
 
-st_autorefresh(interval=500, key="data_refresh")
+# st_autorefresh(interval=500, key="data_refresh")
 
 # video transformer
 class YOLOTransformer(VideoTransformerBase):
