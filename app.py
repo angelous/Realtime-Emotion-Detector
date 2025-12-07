@@ -4,6 +4,7 @@ from streamlit_autorefresh import st_autorefresh
 import av
 from ultralytics import YOLO
 import numpy as np
+import time
 
 MODEL_PATH = 'model_yolo_v8/weights/best.pt'
 
@@ -58,21 +59,41 @@ webrtc_ctx = webrtc_streamer(
     async_processing=True,
 )
 
-if webrtc_ctx.video_processor:
-    st.session_state.processor = webrtc_ctx.video_processor
+# if webrtc_ctx.video_processor:
+#     st.session_state.processor = webrtc_ctx.video_processor
 
-if st.session_state.processor:
-    label = st.session_state.processor.current_label
-    warn = st.session_state.processor.warning
-else:
-    label = "None"
-    warn = False
+# if st.session_state.processor:
+#     label = st.session_state.processor.current_label
+#     warn = st.session_state.processor.warning
+# else:
+#     label = "None"
+#     warn = False
 
-st.subheader("Current Emotion")
-st.markdown(f"### 🧠 **{label}**")
+# st.subheader("Current Emotion")
+# st.markdown(f"### 🧠 **{label}**")
 
-if warn:
-    st.markdown(
-        "<span style='color:red; font-size:24px;'>⚠️ WARNING: You look sleepy!</span>",
-        unsafe_allow_html=True,
-    )
+# if warn:
+#     st.markdown(
+#         "<span style='color:red; font-size:24px;'>⚠️ WARNING: You look sleepy!</span>",
+#         unsafe_allow_html=True,
+#     )
+
+label_placeholder = st.empty()
+warning_placeholder = st.empty()
+
+while True:
+    if webrtc_ctx.video_processor:
+        label = webrtc_ctx.video_processor.current_label
+        warn = webrtc_ctx.video_processor.warning
+
+        label_placeholder.markdown(f"### 🧠 **{label}**")
+
+        if warn:
+            warning_placeholder.markdown(
+                "<span style='color:red; font-size:24px;'>⚠️ WARNING: You look sleepy!</span>",
+                unsafe_allow_html=True
+            )
+        else:
+            warning_placeholder.markdown("")
+    
+    time.sleep(0.1)
