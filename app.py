@@ -50,7 +50,7 @@ webrtc_ctx = webrtc_streamer(
     rtc_configuration={
         "iceServers": [
             {
-                "urls": "relay1.expressturn.com:3480",
+                "urls": "turn:relay1.expressturn.com:3480?transport=udp",
                 "username": "000000002080719928",
                 "credential": "+SHJnrTpaYjzqu9zIi04haY0qnw="
             }
