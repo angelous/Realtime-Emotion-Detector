@@ -51,11 +51,11 @@ webrtc_ctx = webrtc_streamer(
     mode=WebRtcMode.SENDRECV,
     rtc_configuration={
         "iceServers": [
-            { "urls": "stun:stun.l.google.com:19302" },
-            { "urls": "stun:stun1.l.google.com:19302" },
-            { "urls": "stun:stun2.l.google.com:19302" },
-            { "urls": "stun:stun3.l.google.com:19302" },
-            { "urls": "stun:stun4.l.google.com:19302" }
+            {
+                "urls": "relay1.expressturn.com:3480",
+                "username": "000000002080719928",
+                "credential": "+SHJnrTpaYjzqu9zIi04haY0qnw="
+            }
         ]
     },
     video_processor_factory=YOLOTransformer,
