@@ -1,9 +1,7 @@
 import streamlit as st
 from streamlit_webrtc import webrtc_streamer, VideoTransformerBase, WebRtcMode
 from streamlit_autorefresh import st_autorefresh
-import av
 from ultralytics import YOLO
-import numpy as np
 import time
 
 MODEL_PATH = 'model_yolo_v8/weights/best.pt'
