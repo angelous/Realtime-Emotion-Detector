@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  emotion-detector:
+    build: .
+    image: emotion-detector
+    container_name: emotion-detector
+    ports:
+      - "8501:8501"
+    environment:
+      - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+      - STREAMLIT_SERVER_ENABLE_CORS=false
+      - STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION=false
+      - STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
