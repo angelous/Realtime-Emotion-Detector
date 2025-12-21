@@ -5,6 +5,7 @@ from ultralytics import YOLO
 import time
 from collections import deque
 import cv2
+import base64
 
 MODEL_PATH = 'model_yolo_v8/weights/best.pt'
 ALERT_SOUND_PATH = "alert.wav" # Belum ada fungsi untuk ini
@@ -16,7 +17,26 @@ model = YOLO(MODEL_PATH)
 if "processor" not in st.session_state:
     st.session_state.processor = None
 
+if "last_alert_time" not in st.session_state:
+    st.session_state.last_alert_time = 0
+
 st_autorefresh(interval=500, key="data_refresh")
+
+def play_audio_alert():
+    """Play alert sound using HTML audio element"""
+    try:
+        with open(ALERT_SOUND_PATH, "rb") as audio_file:
+            audio_bytes = audio_file.read()
+            audio_base64 = base64.b64encode(audio_bytes).decode()
+            audio_html = f"""
+                <audio autoplay>
+                    <source src="data:audio/wav;base64,{audio_base64}" type="audio/wav">
+                </audio>
+            """
+            st.markdown(audio_html, unsafe_allow_html=True)
+    except FileNotFoundError:
+        st.warning("Alert sound file not found. Please add 'alert.wav' to your project directory.")
+
 
 # video transformer
 class YOLOTransformer(VideoTransformerBase):
@@ -69,8 +89,8 @@ webrtc_ctx = webrtc_streamer(
         "iceServers": [
             {
                 "urls": "turn:relay1.expressturn.com:3480?transport=udp",
-                "username": "000000002080719928",
-                "credential": "+SHJnrTpaYjzqu9zIi04haY0qnw="
+                "username": "000000002081694162",
+                "credential": "fhBhF4Bs41LC1aFB+/cGdCXclg0="
             }
         ]
     },
@@ -82,6 +102,7 @@ webrtc_ctx = webrtc_streamer(
 
 label_placeholder = st.empty()
 warning_placeholder = st.empty()
+audio_placeholder = st.empty()
 
 while True:
     if webrtc_ctx.video_processor:
@@ -94,6 +115,12 @@ while True:
                 "<span style='color:red; font-size:24px;'>⚠️ WARNING: You look sleepy!</span>",
                 unsafe_allow_html=True
             )
+
+            current_time = time.time()
+            if current_time - st.session_state.last_alert_time >= 2.0:
+                with audio_placeholder.container():
+                    play_audio_alert()
+                st.session_state.last_alert_time = current_time
         else:
             label_placeholder.markdown("")
             warning_placeholder.markdown("")
