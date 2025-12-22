@@ -32,6 +32,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Copy application files
 COPY app.py .
 COPY data_config.yaml .
+COPY alert.wav .
 COPY model_yolo_v8/ ./model_yolo_v8/
 COPY .streamlit/ ./.streamlit/
 
