@@ -2,4 +2,5 @@ streamlit-autorefresh==1.0.1
 streamlit-webrtc==0.64.5
 ultralytics==8.3.229
 ultralytics-thop==2.0.18
+opencv-python==0.0.0
 opencv-python-headless==4.10.0.84
