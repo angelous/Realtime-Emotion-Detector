@@ -8,7 +8,7 @@ import cv2
 import base64
 
 MODEL_PATH = 'model_yolo_v8/weights/best.pt'
-ALERT_SOUND_PATH = "alert.wav" # Belum ada fungsi untuk ini
+ALERT_SOUND_PATH = "alert.wav"
 
 st.title("Sleepiness and Drowsiness Detection")
 
@@ -88,10 +88,28 @@ webrtc_ctx = webrtc_streamer(
     rtc_configuration={
         "iceServers": [
             {
-                "urls": "turn:relay1.expressturn.com:3480?transport=udp",
-                "username": "000000002081694162",
-                "credential": "fhBhF4Bs41LC1aFB+/cGdCXclg0="
-            }
+                "urls": "stun:stun.relay.metered.ca:80",
+            },
+            {
+                "urls": "turn:global.relay.metered.ca:80",
+                "username": "9a6ad3c8facce6c9e0e03901",
+                "credential": "h5l6AzsvKLBAGlLD",
+            },
+            {
+                "urls": "turn:global.relay.metered.ca:80?transport=tcp",
+                "username": "9a6ad3c8facce6c9e0e03901",
+                "credential": "h5l6AzsvKLBAGlLD",
+            },
+            {
+                "urls": "turn:global.relay.metered.ca:443",
+                "username": "9a6ad3c8facce6c9e0e03901",
+                "credential": "h5l6AzsvKLBAGlLD",
+            },
+            {
+                "urls": "turns:global.relay.metered.ca:443?transport=tcp",
+                "username": "9a6ad3c8facce6c9e0e03901",
+                "credential": "h5l6AzsvKLBAGlLD",
+            },
         ]
     },
     video_processor_factory=YOLOTransformer,
