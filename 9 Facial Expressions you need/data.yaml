@@ -1,5 +1,0 @@
-train: ../train/images
-val: ../valid/images
-test: ../test/images
-nc: 9
-names: ['angry', 'contempt', 'disgust', 'fear', 'happy', 'natural', 'sad', 'sleepy', 'surprised']
